@@ -53,6 +53,9 @@ Before you begin, ensure you have the following installed on your system:
 
 ## Running the Server
 
+    ```
+    python manage.py migrate
+    ```
 You can now run the Django development server:
 
 The server will start running locally at `http://127.0.0.1:8000/`.
