@@ -1,0 +1,65 @@
+{% extends 'notes/base.html' %}
+
+{% block content %}
+<div class="py-12 px-4 sm:px-6 lg:px-8 flex justify-center">
+  <div class="w-1/2">
+    <h1 class="text-3xl text-center font-semibold mb-4">My Notes</h1>
+    <input
+      type="text"
+      placeholder="Search by title"
+      value=""
+      id="searchInput"
+      class="my-3 px-3 py-2 text-lg outline-none w-64 focus:ring-2 shadow-md shadow-gray-400 focus:ring-blue-300 rounded-full"
+    />
+    <table class="table-auto w-full border border-black" id="notesTable">
+      <thead>
+        <tr>
+          <th class="px-4 py-2 border border-black">S.No.</th>
+          <th class="px-4 py-2 border border-black">Title</th>
+          <th class="px-4 py-2 border border-black">Description</th>
+          <th class="px-4 py-2 border border-black">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through notes -->
+        {% for note in notes %}
+        <tr>
+          <td class="border px-4 py-2 text-center border border-black">{{ forloop.counter }}</td>
+          <td class="border px-4 py-2 text-left border border-black">{{ note.title }}</td>
+          <td class="border px-4 py-2 text-left border border-black">{{ note.description }}</td>
+          <td class="border px-4 py-2 text-center border border-black gap-2">
+            <a href="{% url 'note_update' pk=note.pk %}" class="text-blue-500 hover:text-blue-700"><i class="fa-regular fa-pen-to-square p-2 hover:scale-110"></i></a>
+            <a href="{% url 'note_delete' pk=note.pk %}" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash p-2 hover:scale-110"></i></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="mt-10 flex justify-center">
+      <a href="{% url 'note_create' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Create Note</a>
+
+      {% if notes %}
+      <a href="{% url 'pdf' %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg ml-4">PDF Export</a>
+      {% endif %}
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript code to filter notes based on the search input -->
+<script>
+  document.getElementById('searchInput').addEventListener('input', function() {
+    const searchText = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#notesTable tbody tr');
+
+    rows.forEach(row => {
+      const title = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+      if (title.includes(searchText)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+</script>
+{% endblock %}
