@@ -18,7 +18,7 @@ Before you begin, ensure you have the following installed on your system:
     cd django-int253-ca-3-project
     ```
 
-2. Install the PostgreSQL Database and create a PostgreSQL database from the psql shell:
+2. Create a PostgreSQL database from the psql shell:
     ```
     sudo -u postgres psql
     CREATE DATABASE <database_name>;
