@@ -51,10 +51,9 @@ Before you begin, ensure you have the following installed on your system:
     python manage.py migrate
     ```
 
-## Running the Server
-
+## Running the Server:
     ```
-    python manage.py migrate
+    python manage.py runserver
     ```
 You can now run the Django development server:
 
