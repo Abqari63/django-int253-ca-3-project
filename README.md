@@ -14,16 +14,11 @@ Before you begin, ensure you have the following installed on your system:
 
 1. Clone the repository:
     ```
-    git clone <repository_url>
-    cd <repository_name>
+    git clone https://github.com/Abqari63/django-int253-ca-3-project
+    cd django-int253-ca-3-project
     ```
 
-2. Install dependencies:
-    ```
-    pip install -r requirements.txt
-    ```
-
-3. Install the PostgreSQL Database and create a PostgreSQL database from the psql shell:
+2. Install the PostgreSQL Database and create a PostgreSQL database from the psql shell:
     ```
     sudo -u postgres psql
     CREATE DATABASE <database_name>;
@@ -35,7 +30,7 @@ Before you begin, ensure you have the following installed on your system:
     \q
     ```
 
-4. Configure Django settings:
+3. Configure Django settings:
     - Open `settings.py` file located in `<project_name>/<project_name>/` directory.
     - Update the database settings with your PostgreSQL credentials:
         ```python
@@ -51,7 +46,7 @@ Before you begin, ensure you have the following installed on your system:
         }
         ```
 
-5. Run migrations:
+4. Run migrations:
     ```
     python manage.py migrate
     ```
