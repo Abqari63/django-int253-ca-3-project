@@ -31,7 +31,7 @@ Before you begin, ensure you have the following installed on your system:
     ```
 
 3. Configure Django settings:
-    - Open `settings.py` file located in `<project_name>/<project_name>/` directory.
+    - Open `settings.py` of the cloned directory.
     - Update the database settings with your PostgreSQL credentials:
         ```python
         DATABASES = {
