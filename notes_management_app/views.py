@@ -44,11 +44,10 @@ def logout_view(request):
     return redirect('note_list')
 
 
-
 def exportAsPDF(request):
     notes = Note.objects.all()
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment;'
+    response['Content-Disposition'] = 'attachment; filename="notes.pdf"'
 
     data = [['S.No', 'Title', 'Description']]
     i = 1
@@ -71,9 +70,11 @@ def contactus (request):
     return render(request, "notes/contactus.html")
 
 
+
 def note_list(request):
     notes = Note.objects.all()
     return render(request, 'notes/readNotes.html', {'notes': notes})
+
 
 def note_create(request):
     if request.method == 'POST':
@@ -85,6 +86,7 @@ def note_create(request):
         form = NoteForm()
     return render(request, 'notes/createAndEditNote.html', {'form': form})
 
+
 def note_update(request, pk):
     note = get_object_or_404(Note, pk=pk)
     if request.method == 'POST':
@@ -95,6 +97,7 @@ def note_update(request, pk):
     else:
         form = NoteForm(instance=note)
     return render(request, 'notes/createAndEditNote.html', {'form': form})
+
 
 def note_delete(request, pk):
     note = get_object_or_404(Note, pk=pk)
