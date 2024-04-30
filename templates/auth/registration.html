@@ -1,0 +1,53 @@
+{% extends 'notes/base.html' %}
+
+{% block content %}
+
+<div class="flex justify-center">
+    <div class="w-full h-full sm:w-1/2">
+        <h2 class="text-4xl font-semibold text-center text-gray-800 mb-6">Register</h2>
+        <form method="POST" action="{% url 'register' %}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="{{ form.username.id_for_label}}" class="block text-gray-700 text-sm font-bold mb-2">Username:</label>
+                <input type="text" name="{{ form.username.name }}" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ form.username.value}}" />
+                {% if form.username.errors %}
+                <span id="user" class="text-red-500 text-xs italic">{{ form.username.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ form.password1.id_for_label}}" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+                <input type="password" name="{{ form.password1.name }}" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ form.password1.value}}" />
+                <span id="pass1" class="text-red-500 text-xs italic">{{ form.password1.errors }}</span>
+            </div>
+            
+            <div class="mb-6">
+                <label for="{{ form.password2.id_for_label}}" class="block text-gray-700 text-sm font-bold mb-2">Re-Type Password:</label>
+                <input type="password" name="{{ form.password2.name }}" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ form.password2.value}}" />
+                <span id="pass2" class="text-red-500 text-xs italic">{{ form.password2.errors }}</span>
+            </div>
+
+            <div class="flex items-center justify-start">
+                <button type="submit" class="bg-gray-800 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-gray-700">Submit</button>
+                <a href="{% url 'login' %}" class="inline-block align-baseline font-bold text-sm text-gray-600 hover:text-gray-800 mx-5">Login</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    username = document.getElementById("user")
+    pass1 = document.getElementById("pass1")
+    pass2 = document.getElementById("pass2")
+
+    setTimeout(() => {
+        username.style.display = 'none'
+    }, 2000)
+    setTimeout(() => {
+        pass1.style.display = 'none'
+    }, 2000)
+    setTimeout(() => {
+        pass2.style.display = 'none'
+    }, 2000)
+</script>
+{% endblock %}

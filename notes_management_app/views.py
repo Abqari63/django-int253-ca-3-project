@@ -1,11 +1,48 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, logout
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from .models import Note
 from .forms import NoteForm
+from .middlewares import guest
+
+@guest
+def register_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('note_list')
+    else:
+        initials = {'username': '', 'password1': '', 'password2': ''}
+        form = UserCreationForm(initial=initials)
+    
+    return render(request, 'auth/registration.html', {'form': form})
+
+@guest
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('note_list')
+
+    else:
+        initials = { 'username': '', 'password': '' }
+        form = AuthenticationForm(initial=initials)
+    return render(request, 'auth/login.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('note_list')
+
 
 
 def exportAsPDF(request):
